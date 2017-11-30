@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:\\Users\\heanu\\desktop\\Mnist-Digit-Reader--master\\tflearn\\mnist_model.h5"
+all_model_checkpoint_paths: "C:\\Users\\heanu\\desktop\\Mnist-Digit-Reader--master\\tflearn\\mnist_model.h5"
