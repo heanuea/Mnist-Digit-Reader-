@@ -65,10 +65,10 @@ model.fit({'input': train_images}, {'target': mnist.train.labels}, n_epoch=num_e
            validation_set=({'input': test_images}, {'target': mnist.test.labels}),
             show_metric=True, run_id='TFLearn_DeepMNIST')
 		
-model.save('LSTM_model.tfl')
+#model.save('LSTM_model.tfl')
 # model.save("mnist_model.h5")-
 
 
 # Save the path to the trained model
-saver.save(sess, savePath)
-print('Session saved in path '+savePath)
+#saver.save(sess, savePath)
+#print('Session saved in path '+savePath)

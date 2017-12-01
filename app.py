@@ -10,11 +10,9 @@ import TFlearn as ten
 
 app = Flask(__name__)
 
-
 @app.route('/')
 def index():
     return render_template("index.html")
-
 
 @app.route('/predict/', methods=['GET','POST'])
 def predict():
@@ -25,11 +23,9 @@ def predict():
     x = imread('output.png', mode='L')
     x = np.invert(x)
     x = imresize(x,(28,28))
-
-  
     x = x.reshape(1,28,28,1)
 
-    model = models.load_model("model/mnist_model.h5.index")
+
 
     
     out = model.predict(x)
@@ -53,7 +49,7 @@ def get_image():
         image_array = image_array.flatten()  
         
         with tf.Session() as sess:
-            saver = tf.train.import_meta_graph('tmp/tensor_model.meta')
+            saver = tf.train.import_meta_graph('LSTM/tensor_model.meta')
             saver.restore(sess, tf.train.latest_checkpoint('tmp/'))
 
             predict_number = tf.argmax(ten.y, 1)
