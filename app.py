@@ -6,7 +6,7 @@ from PIL import Image
 import re
 import base64
 
-#import tensor_ml as ten
+import TFlearn as ten
 
 app = Flask(__name__)
 
@@ -63,7 +63,9 @@ def get_image():
             print(guessNum)
 
         return jsonify(guessNum = guessNum) 
+
     return render_template('index.html', guessNum = guessNum)
+
 
 if __name__ == '__main__':
     app.run(debug = True)

@@ -1,67 +1,107 @@
 <!doctype html>
+
 <html lang="en">
-  <head>
-    <title>Digit Recognition </title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <meta charset="utf-8">
+  <title>TensorFlow Project</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+  <!-- Latest compiled and minified Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/css/styles.css" />
+  <!-- Using fabric.js library to enable free drawing of numbers in the canvas -->
+  <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'></script>
+  <!-- Going to use JQuery so its good to have library locally -->
+  <script type='text/javascript' src="static/js/jquery-3.2.1.min.js"></script>
+     <script type='text/javascript'>
+
+        
+        var canvas;
+        var image;
+        
+        var bThick = 15;
+      
+        var cColour = '#FFFFFF'; // #black
+
+        //Initialize  fabric library
+        function initCanvas(){
+            canvas = new fabric.Canvas('numCanvas');
+            canvas.isDrawingMode = true;
+            canvas.freeDrawingBrush.width = bThick;
+            canvas.freeDrawingBrush.color = cColour;
+            canvas.backgroundColor = '#000000';            
+        }
+
+       
+        window.onload = function(){
+            initCanvas();
+            // submit button
+            var btnsub = document.getElementById('btnSubmit');
+            btnsub.addEventListener('click', handleImage());
+        };
+        
+        //reset canvas
+        function reset() {           
+            canvas.clear();   
+            $('#guessNum').text('');     
+        }
+
+        function handleImage(){                        
+            var imgURL = canvas.toDataURL();   
+             
+            //Send Ajax call
+            $.ajax({
+                type: 'post',
+                url: '/',
+                data: {
+                    imageBase64 : imgURL
+                },
+              
+                success: function(data){
+                    $('#guessNum').text(data.guessNum);
+                }              
+            });                     
+        }
+    </script>
+
+
+</head>
+<body>
     
-    integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
-    <!-- Bootstrap style template -->
-    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='starter-template.css') }}>
-
-
-  <body>
- 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Mnist Digit Reader</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
-          </ul>
-          
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+              <h1 class="navbar-text">Mnist Digit Reader</h1>            
+          </div>
         </div>
       </nav>
-      
-  
-      <main role="main" class="container">
+  <div id="mainContent" class="jumbotron">
+        <div class="container col-xs-12">
+            <div class="row col-xs-12">   
+                <div class="col-xs-1"></div>    
+                        <div class="col-xs-4">
+                            <canvas id="numCanvas" width="280" height="280"></canvas>                             
+                        </div> 
 
-        <div class="starter-template">
-          <h1>Upload Digit</h1>
-          <form method="POST" enctype="multipart/form-data">
-            <label class="custom-file">
-              
-              <input type="file" name="file" class="custom-file-input">
-              <span class="custom-file-control"></span>
-            
-            </label>
-            </form><br>
-            <div>
-                 <button class="btn btn-primary" type="submit">Upload file</button>
-            </div>
-          </form>
-         
+                            <div class="col-xs-4">               
+                                <div>
+                                    <!-- Result is shown in this H1 element -->
+                                        <h3>The Number Should Be </h3>                    
+                                        <h1 id="guessNum"></h1>
+                                </div>
+                            </div>   
+                                
+            </div> 
+                <div class="row col-xs-12"style="padding-top:20px">
+                    <div class="actions"
+                    >
+                        <div class="col-xs-1"></div>
+
+                        <button id="btnSubmit" class="btn btn-primary col-xs-1" onclick="handleImage()">Submit</button>
+                        <button class="btn btn-primary col-xs-1 col-xs-offset-1" onclick="reset()">Reset</button>
+                    </div>    
+                </div>        
         </div>
-
-            </div>
-                <br>
-            <div class="card-footer text-muted">
-                Created By Alan Heanue 
-            </div>
-            </div>
-      </main><!-- /.container -->
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-  </body>
+  </div>
+  
+</body>
 </html>

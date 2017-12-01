@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:\\Users\\heanu\\Desktop\\Mnist-Digit-Reader--master\\LSTM_model.tfl"
+all_model_checkpoint_paths: "C:\\Users\\heanu\\Desktop\\Mnist-Digit-Reader--master\\LSTM_model.tfl"
