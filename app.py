@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+
 from scipy.misc import imsave , imread, imresize
 import numpy as np
-import keras.models
+from PIL import Image
 import re
 import base64
 
+#import tensor_ml as ten
 
 app = Flask(__name__)
 
@@ -37,12 +39,31 @@ def predict():
     print(response)
     return response
 
+def get_image(): 
+    guessNum = 0
+    if request.method== 'POST':
+        img_size = 28, 28 
+        image_url = request.values['imageBase64']  
+        image_string = re.search(r'base64,(.*)', image_url).group(1)  
+        image_bytes = io.BytesIO(base64.b64decode(image_string)) 
+        image = Image.open(image_bytes) 
+        image = image.resize(img_size, Image.ANTIALIAS)  
+        image = image.convert('1') 
+        image_array = np.asarray(image)
+        image_array = image_array.flatten()  
+        
+        with tf.Session() as sess:
+            saver = tf.train.import_meta_graph('tmp/tensor_model.meta')
+            saver.restore(sess, tf.train.latest_checkpoint('tmp/'))
 
-def parseImg(imgData):
-  
-    imgstr = re.search(b'base64,(.*)', imgData).group(1)
-    with open('output.png','wb') as output:
-        output.write(base64.decodebytes(imgstr))
+            predict_number = tf.argmax(ten.y, 1)
+            predicted_number = ten.sess.run([predict_number], feed_dict={ten.x: [image_array]})
+            guessNum = predicted_number[0][0]
+            guessNum = int(guessNum)
+            print(guessNum)
+
+        return jsonify(guessNum = guessNum) 
+    return render_template('index.html', guessNum = guessNum)
 
 if __name__ == '__main__':
     app.run(debug = True)

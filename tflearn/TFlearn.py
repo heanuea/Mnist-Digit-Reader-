@@ -60,8 +60,6 @@ model = tflearn.DNN(network, tensorboard_verbose=0)  # for more info in tenorboa
 model.fit({'input': train_images}, {'target': mnist.train.labels}, n_epoch=num_epoch,
            validation_set=({'input': test_images}, {'target': mnist.test.labels}),
             show_metric=True, run_id='TFLearn_DeepMNIST')
-
-			
-			
-			
-model.save("mnist_model.h5")
+		
+model.save('LSTM_model.tfl')
+# model.save("mnist_model.h5")-
