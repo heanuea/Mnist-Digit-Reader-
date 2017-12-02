@@ -11,6 +11,8 @@ You can visit the wiki i have the design document up there to [wiki](https://git
 
 
 
+[![N|Solid](https://cldup.com/IU6Qs_rV6q.jpg)](https://cldup.com/IU6Qs_rV6q.jpg/nsolid)
+
 ## **_Technologies_**
 ### **_Python_**
 
