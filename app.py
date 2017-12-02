@@ -6,7 +6,7 @@ from PIL import Image
 import re
 import base64
 
-import TFlearn as ten
+import tensor as ten
 
 app = Flask(__name__)
 
