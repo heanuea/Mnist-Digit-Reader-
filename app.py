@@ -36,7 +36,7 @@ def predict():
     return response
 
 def get_image(): 
-    guessNum = 0
+    guess = 0
     if request.method== 'POST':
         img_size = 28, 28 
         image_url = request.values['imageBase64']  
@@ -54,13 +54,13 @@ def get_image():
 
             predict_number = tf.argmax(ten.y, 1)
             predicted_number = ten.sess.run([predict_number], feed_dict={ten.x: [image_array]})
-            guessNum = predicted_number[0][0]
-            guessNum = int(guessNum)
-            print(guessNum)
+            guess = predicted_number[0][0]
+            guess = int(guess)
+            print(guess)
 
-        return jsonify(guessNum = guessNum) 
+        return jsonify(guess = guess) 
 
-    return render_template('index.html', guessNum = guessNum)
+    return render_template('index.html', guess = guess)
 
 
 if __name__ == '__main__':
