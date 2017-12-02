@@ -4,7 +4,6 @@
 
 import tensorflow as tf
 sess = tf.InteractiveSession()
-savePath = 'model/tensor_model'
 from tensorflow.examples.tutorials.mnist import input_data
 # Create input object which reads data from MNIST datasets.  Perform one-hot encoding to define the digit
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
@@ -15,7 +14,7 @@ savePath = 'model/LSTM_model.tfl'
 sess = tf.InteractiveSession()
 
 # Define placeholders for MNIST input data
-with tf.name_scope("MNIST_Input"):
+
 
     x = tf.placeholder(tf.float32, shape=[None, 784], name="x")
     y_ = tf.placeholder(tf.float32, [None, 10], name="y_")  
