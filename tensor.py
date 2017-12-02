@@ -44,7 +44,7 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 # Train the model
 for _ in range(10000):
     batch = mnist.train.next_batch(100)  
-    rain_step.run(feed_dict={x: batch[0], y_: batch[1]})
+    train_step.run(feed_dict={x: batch[0], y_: batch[1]})
 	
 # Evaluate the model 
 correct_pred = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
@@ -62,9 +62,3 @@ print('Session saved in path '+savePath)
 
 #model.save('LSTM_model.tfl')
 # model.save("mnist_model.h5")-
-
-
-
-
-
-
