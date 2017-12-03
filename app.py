@@ -1,5 +1,6 @@
 from flask import Flask, render_template,url_for, request, jsonify
 import numpy as np
+import tensorflow as tf
 from PIL import Image
 import re
 import io
@@ -14,6 +15,7 @@ app = Flask(__name__)
 def get_image(): 
     guess = 0
     if request.method== 'POST':
+        #requests image from url 
         img_size = 28, 28 
         image_url = request.values['imageBase64']  
         image_string = re.search(r'base64,(.*)', image_url).group(1)  
@@ -25,7 +27,7 @@ def get_image():
         image_array = image_array.flatten()  
         
         with tf.Session() as sess:
-            saver = tf.train.import_meta_graph('LSTM/tensor_model.meta')
+            saver = tf.train.import_meta_graph('tmp/tensor_model.meta')
             saver.restore(sess, tf.train.latest_checkpoint('tmp/'))
 
             predict_number = tf.argmax(ten.y, 1)

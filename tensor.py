@@ -5,7 +5,7 @@ from tensorflow.examples.tutorials.mnist import input_data
 # Create input object which reads data from MNIST datasets.  Perform one-hot encoding to define the digit
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
-savePath = 'model/LSTM_model'
+savePath = 'tmp/tensor_model'
 
 # Using Interactive session makes it the default sessions so we do not need to pass sess 
 import tensorflow as tf
