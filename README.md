@@ -139,7 +139,30 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
  ```
  with a step length of 0.5, to descend the cross entropy.
 
+### **_PREPROCESSING THE HANDWRITTEN DIGIT IMAGES_**
 
-### **_Flask_**
+The data sent to the server from the front end needs to be peprocessed before classification. The first step is to convert the base64-encoded image of the digit drawn by the user to a NumPy ndarray data structure with an URl the Function image_url = request.values['imageBase64'] , at which point the data could be fed to the classifier. However, in order to minimize the loss in classificatin accuracy caused by the differences to the MNIST training data, a few extra steps need to be taken as we seen in the Flask App above this is converted to PIL Image and it tries to resize it using image = image.resize(img_size, Image.ANTIALIAS) for tensorflow. 
 
-### **_TensorFlow_**
+
+## **_Requirements_**
+
+- Python 3.5.0 
+- Flask 
+- Tensorflow 
+You will need to install a few packages for this to work to do this you can use this cmd 
+```
+pip install "package"
+```
+**To run this app**
+- git clone this app or just download zip 
+```
+git clone ssh://john@example.com/path/to/my-project.git
+```
+go into project 
+```
+cd my-project
+```
+and to run 
+```
+python app.py 
+```
