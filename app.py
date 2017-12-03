@@ -1,3 +1,5 @@
+# taken from https://community.canvaslms.com/thread/2595
+
 from flask import Flask, render_template,url_for, request, jsonify
 import numpy as np
 import tensorflow as tf
@@ -36,7 +38,7 @@ def get_image():
             guess = int(guess)
             print(guess)
 
-        return jsonify(guess = guess) 
+        return jsonify(guess = guess) #returns as jason format
 
     return render_template('index.html', guess = guess)
 

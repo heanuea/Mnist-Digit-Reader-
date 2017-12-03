@@ -58,6 +58,7 @@ print("Current accuracy: %.2f%%"% (acc_eval*100))
 saver.save(sess, savePath)
 print('Session saved in path '+savePath)
 
-
+#print("Test accuracy {0:.3f}%".format(accuracy.eval(feed_dict={
+   # x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})*100.0))
 #model.save('LSTM_model.tfl')
 # model.save("mnist_model.h5")-
