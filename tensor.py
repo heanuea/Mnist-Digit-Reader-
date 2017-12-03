@@ -1,23 +1,22 @@
 
 #   TfLearn version of DeepMNIST
 # taking from https://www.tensorflow.org/get_started/mnist/pros
-
-import tensorflow as tf
-sess = tf.InteractiveSession()
 from tensorflow.examples.tutorials.mnist import input_data
 # Create input object which reads data from MNIST datasets.  Perform one-hot encoding to define the digit
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
-savePath = 'model/LSTM_model.tfl'
+savePath = 'model/LSTM_model'
 
 # Using Interactive session makes it the default sessions so we do not need to pass sess 
+import tensorflow as tf
 sess = tf.InteractiveSession()
+
+
 
 # Define placeholders for MNIST input data
 
-
-x = tf.placeholder(tf.float32, shape=[None, 784], name="x")
-y_ = tf.placeholder(tf.float32, [None, 10], name="y_")  
+x = tf.placeholder(tf.float32, shape=[None, 784])
+y_ = tf.placeholder(tf.float32, [None, 10])  
     #We now define the weights W and biases b for our model. 
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))

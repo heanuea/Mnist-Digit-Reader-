@@ -1,2 +1,2 @@
-model_checkpoint_path: "LSTM_model.tfl"
-all_model_checkpoint_paths: "LSTM_model.tfl"
+model_checkpoint_path: "LSTM_model"
+all_model_checkpoint_paths: "LSTM_model"
