@@ -14,26 +14,9 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-@app.route('/predict/', methods=['GET','POST'])
-def predict():
-    
-    parseImg(request.get_data())
-
-    
-    x = imread('output.png', mode='L')
-    x = np.invert(x)
-    x = imresize(x,(28,28))
-    x = x.reshape(1,28,28,1)
+@app.route('/', methods=['GET','POST'])
 
 
-
-    
-    out = model.predict(x)
-    print(out)
-   
-    response = np.array_str(np.argmax(out, axis=1))
-    print(response)
-    return response
 
 def get_image(): 
     guess = 0
