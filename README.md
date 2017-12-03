@@ -27,8 +27,7 @@ Base64 encoding is a way to represent binary data in an ASCII string format, oft
 The next step is to share the digit with the server, where Flask will handle the rest. I am using AJAX with JQuery, which allows me to update the page to display the result of the digit recognition without having to reload the whole web page. To write the code I used the example in Flask's documentation as a starting point and changed it to transfer the data in JSON format in the body of a POST request. The following is the final JavaScript function (found at the end of the source html in the page index.html).
 
 
-**Step 1**
-Ajax call
+**Ajax call**
 
 ```                $.ajax({
                     type: 'post',
@@ -44,7 +43,7 @@ Ajax call
             }
 ```
 
-**_FLASK CODE_**
+**Flask**
 
 I needed Flask to perform three tasks besides rendering the website: collect the base64-encoded handwritten digit images; hand the images over to the machine learning recognizer; and return the result back to the front end. The complete Flask code is shown here below.
 
@@ -98,7 +97,8 @@ if __name__ == '__main__':
 Two functions implementing the Flask tasks follow. The functions use Flasks's route() decorator to indicate what URL should trigger the function. While index() simply renders the web page, get_image() handles all the digit recognition work. It collects the data, preprocesses the digit images, and runs the digit recognizer. This uses functionality implemented in the PIL module, addressed in more detail in the sections discussing data preprocessing and the machine learning classifier below. Additionally, get_image() also prepares the output by identifying the class (digits between 0 and 9) with the highest probability and composing the string to be displayed to the user. If the determined highest probability is lower than 60%, the output class is not shown and the string is a message indicating the digit could not be identified. This is to handle the fact that the model will always output a digit class, even if the drawing does not look at all like a digit. Otherwise, the string contains the predicted digit and its probability.
 
 ### **_MNIST_**
-As I mentioned above, handwritten digit recognition is a widely studied problem in the field of computer vision. A popular training dataset, the [MNIST](http://yann.lecun.com/exdb/mnist/), has been around for quite some time and has been used extensively to benchmark developments in the field. It is a subset of a larger dataset distributed by the National Institute of Standards and Technology (NIST).[MNIST](http://yann.lecun.com/exdb/mnist/) consists of scanned grayscale digital images of handwritten digits, including balanced sets of 60,000 and 10,000 training and test images, respectively. The images have been size-normalized and centered, making up a nice and clean dataset ready for use. Here are some examples.
+As I mentioned above, handwritten digit recognition is a widely studied problem in the field of computer vision. A popular training dataset, the [MNIST](http://yann.lecun.com/exdb/mnist/), has been around for quite some time and has been used extensively to benchmark developments in the field. It is a subset of a larger dataset distributed by the National Institute of Standards and Technology (NIST).[MNIST](http://yann.lecun.com/exdb/mnist/) consists of scanned grayscale digital images of handwritten digits, including balanced sets of 60,000 and 10,000 training and test images, respectively. The images have been size-normalized and centered, making up a nice and clean dataset ready for use. Here are some example.
+[![N|Solid](C:\Users\heanu\desktop\Mnist-Digit-Reader--master\Images\Figure-13-Scatter-SVM-non-support-vectors-on-MNIST-data.png)]
 
 ### **_TensorFlow_**
 
@@ -137,7 +137,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
  train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
  ```
  with a step length of 0.5, to descend the cross entropy.
- 
+
 
 ### **_Flask_**
 
