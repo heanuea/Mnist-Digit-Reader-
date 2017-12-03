@@ -8,99 +8,100 @@
   <!-- Latest Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="static/css/styles.css" />
-  <!-- Using fabric.js library to enable free drawing of numbers in the canvas -->
+
+  <!-- fabric.js library -->
   <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'></script>
+
   <!-- Going to use JQuery so its good to have library locally -->
   <script type='text/javascript' src="static/js/jquery-3.2.1.min.js"></script>
-     <script type='text/javascript'>
+        <script type='text/javascript'>
 
+            
+            var canvas;
+            var image;
+            var bThick = 15;
+            var cColour = '#FFFFFF'; // #black
+
+            //Initialize  fabric 
+            function initCanvas(){
+                canvas = new fabric.Canvas('canvasBox');
+                canvas.isDrawingMode = true;
+                canvas.freeDrawingBrush.width = bThick;
+                canvas.freeDrawingBrush.color = cColour;
+                canvas.backgroundColor = '#000000';            
+            }
         
-        var canvas;
-        var image;
-        
-        var bThick = 15;
-      
-        var cColour = '#FFFFFF'; // #black
+            window.onload = function(){
+                initCanvas();
+                // submit button
+                var btnsub = document.getElementById('btnSubmit');
+                btnsub.addEventListener('click', handleImage());
+            };
+            
+            //reset canvas
+            function reset() {           
+                canvas.clear();   
+                $('#guess').text('');     
+            }
 
-        //Initialize  fabric 
-        function initCanvas(){
-            canvas = new fabric.Canvas('canvasBox');
-            canvas.isDrawingMode = true;
-            canvas.freeDrawingBrush.width = bThick;
-            canvas.freeDrawingBrush.color = cColour;
-            canvas.backgroundColor = '#000000';            
-        }
-       
-        window.onload = function(){
-            initCanvas();
-            // submit button
-            var btnsub = document.getElementById('btnSubmit');
-            btnsub.addEventListener('click', handleImage());
-        };
-        
-        //reset canvas
-        function reset() {           
-            canvas.clear();   
-            $('#guess').text('');     
-        }
+            function handleImage(){                        
+                var imgURL = canvas.toDataURL();   
 
-        function handleImage(){                        
-            var imgURL = canvas.toDataURL();   
-
-            //Send Ajax call
-            $.ajax({
-                type: 'post',
-                url: '/',
-                data: {
-                    imageBase64 : imgURL
-                },
-              
-                success: function(data){
-                    $('#guess').text(data.guess);
-                }              
-            });                     
-        }
-    </script>
+                //Send Ajax call
+                $.ajax({
+                    type: 'post',
+                    url: '/',
+                    data: {
+                        imageBase64 : imgURL
+                    },
+                
+                    success: function(data){
+                        $('#guess').text(data.guess);
+                    }              
+                });                     
+            }
+        </script>
 
 
 </head>
-<body>
-    
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-              <h1 class="navbar-text">Mnist Digit Reader</h1>            
-          </div>
-        </div>
-      </nav>
-  <div id="mainContent" class="jumbotron">
-        <div class="container col-xs-12">
-            <div class="row col-xs-12">   
-                <div class="col-xs-1"></div>    
-                        <div class="col-xs-4">
-                            <canvas id="canvasBox" width="280" height="280"></canvas>                             
-                        </div> 
+<!--end of head -->
 
+
+    <body>
+                <!-- NAVAGATION BAR -->
+         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">  
+             <a class="navbar-brand navbar-link " href="/">Digit Recognition</a>
+            </nav>
+                        
+            <div id="mainContent" class="jumbotron">
+                <div class="container col-xs-12">
+                    <div class="row col-xs-12">   
+                        <div class="col-xs-1"></div>    
+                                <div class="col-xs-4">
+                                    <canvas id="canvasBox" width="250" height="300"></canvas>                             
+                                </div> 
+
+                                    
+                                        
+                    </div> 
+                        <div class="row col-xs-12"style="padding-top:20px">
+                                <div class="actions"
+                                >
+                                    <div class="col-xs-1"></div>
+                                    <button id="btnSubmit" class="btn btn-primary col-xs-1" onclick="handleImage()">Submit</button>
+                                    <button class="btn btn-primary col-xs-1 col-xs-offset-1" onclick="reset()">Reset</button>
+                                </div>    
+                        </div>
+                        
                             <div class="col-xs-4">               
                                 <div>
-                                    <!-- Result is shown in this H1 element -->
-                                        <h3>The Number Should Be </h3>                    
+                                        <h3>The Computer Says ... </h3>                    
                                         <h1 id="guess"></h1>
                                 </div>
-                            </div>   
-                                
-            </div> 
-                <div class="row col-xs-12"style="padding-top:20px">
-                    <div class="actions"
-                    >
-                        <div class="col-xs-1"></div>
-
-                        <button id="btnSubmit" class="btn btn-primary col-xs-1" onclick="handleImage()">Submit</button>
-                        <button class="btn btn-primary col-xs-1 col-xs-offset-1" onclick="reset()">Reset</button>
-                    </div>    
-                </div>        
+                        </div> 
+                </div>
         </div>
-  </div>
-  
-</body>
+        
+    </body>
+
 </html>

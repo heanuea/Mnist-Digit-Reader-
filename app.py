@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, jsonify
-
+from flask import Flask, render_template,url_for, request, jsonify
 from scipy.misc import imsave , imread, imresize
 import numpy as np
 from PIL import Image
 import re
+import io
 import base64
 
 import tensor as ten
