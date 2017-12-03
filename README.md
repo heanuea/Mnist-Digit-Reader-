@@ -99,8 +99,8 @@ Two functions implementing the Flask tasks follow. The functions use Flasks's ro
 ### **_MNIST_**
 As I mentioned above, handwritten digit recognition is a widely studied problem in the field of computer vision. A popular training dataset, the [MNIST](http://yann.lecun.com/exdb/mnist/), has been around for quite some time and has been used extensively to benchmark developments in the field. It is a subset of a larger dataset distributed by the National Institute of Standards and Technology (NIST).[MNIST](http://yann.lecun.com/exdb/mnist/) consists of scanned grayscale digital images of handwritten digits, including balanced sets of 60,000 and 10,000 training and test images, respectively. The images have been size-normalized and centered, making up a nice and clean dataset ready for use. Here are some example.
 
-[![N|Solid](C:\Users\heanu\desktop\Mnist-Digit-Reader--master\Images\Figure-13-Scatter-SVM-non-support-vectors-on-MNIST-data.png)]
-(C:\Users\heanu\desktop\Mnist-Digit-Reader--master\Images\Figure-13-Scatter-SVM-non-support-vectors-on-MNIST-data.png)
+[![N|Solid](https://github.com/heanuea/Mnist-Digit-Reader--master/Images/Figure-13-Scatter-SVM-non-support-vectors-on-MNIST-data.png)]
+
 ### **_TensorFlow_**
 
 I decided to use TensorFlow, Google's machine learning software library to implement the machine learning model. To make the implementation even simpler, I went one step higher in the abstraction level and used TFlearn, a software library providing "a higher-level API to TensorFlow". As for the choice of machine learning algorithm, the best classification accuracies are achieved with deep convolutional neural networks (CNNs), as you can see in the list of research results on MNIST's webpage or in this other curated list. However, you can get very decent accuracies with relatively shallow CNNs too. So, at least for the first implementation, I decided to use a relatively simple CNN architecture.
