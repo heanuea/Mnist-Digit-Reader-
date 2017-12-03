@@ -11,11 +11,15 @@ After training, the CNN showed 92.92% accuracy on MNIST's test dataset. To learn
 ## **_Overview_**
 **_[Project Brief](https://emerging-technologies.github.io/problems/project.html)_**
 
-You can visit the wiki i have the design document up there to [wiki](https://github.com/
-
-
 
 [![N|Solid](https://cldup.com/IU6Qs_rV6q.jpg)](https://cldup.com/IU6Qs_rV6q.jpg/nsolid)
+
+I will cover a much simpler approach, similar to the one used here. We’ll use
+
+- Fl[Flask](flask.pocoo.org/)to build the API (back-end)
+- jquery.ajax to handle requests to the API from your client (front-end)
+- I use JavaScript(FabricJs) to allow the user to draw graphics on the fly in an HTML canvas element
+
 
 ## **_Technologies_**
 ### **_Python_**
