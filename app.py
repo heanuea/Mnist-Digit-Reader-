@@ -1,5 +1,4 @@
 from flask import Flask, render_template,url_for, request, jsonify
-from scipy.misc import imsave , imread, imresize
 import numpy as np
 from PIL import Image
 import re
