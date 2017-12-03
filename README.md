@@ -95,9 +95,49 @@ if __name__ == '__main__':
     app.run(debug = True)
 
 ```
+Two functions implementing the Flask tasks follow. The functions use Flasks's route() decorator to indicate what URL should trigger the function. While index() simply renders the web page, get_image() handles all the digit recognition work. It collects the data, preprocesses the digit images, and runs the digit recognizer. This uses functionality implemented in the PIL module, addressed in more detail in the sections discussing data preprocessing and the machine learning classifier below. Additionally, get_image() also prepares the output by identifying the class (digits between 0 and 9) with the highest probability and composing the string to be displayed to the user. If the determined highest probability is lower than 60%, the output class is not shown and the string is a message indicating the digit could not be identified. This is to handle the fact that the model will always output a digit class, even if the drawing does not look at all like a digit. Otherwise, the string contains the predicted digit and its probability.
 
-## **_Technologies_**
-### **_Python_**
+### **_MNIST_**
+As I mentioned above, handwritten digit recognition is a widely studied problem in the field of computer vision. A popular training dataset, the [MNIST](http://yann.lecun.com/exdb/mnist/), has been around for quite some time and has been used extensively to benchmark developments in the field. It is a subset of a larger dataset distributed by the National Institute of Standards and Technology (NIST).[MNIST](http://yann.lecun.com/exdb/mnist/) consists of scanned grayscale digital images of handwritten digits, including balanced sets of 60,000 and 10,000 training and test images, respectively. The images have been size-normalized and centered, making up a nice and clean dataset ready for use. Here are some examples.
+
+### **_TensorFlow_**
+
+I decided to use TensorFlow, Google's machine learning software library to implement the machine learning model. To make the implementation even simpler, I went one step higher in the abstraction level and used TFlearn, a software library providing "a higher-level API to TensorFlow". As for the choice of machine learning algorithm, the best classification accuracies are achieved with deep convolutional neural networks (CNNs), as you can see in the list of research results on MNIST's webpage or in this other curated list. However, you can get very decent accuracies with relatively shallow CNNs too. So, at least for the first implementation, I decided to use a relatively simple CNN architecture.
+```
+sess = tf.InteractiveSession()
+x = tf.placeholder(tf.float32, shape=[None, 784])
+y_ = tf.placeholder(tf.float32, [None, 10])  
+    #We now define the weights W and biases b for our model. 
+W = tf.Variable(tf.zeros([784, 10]))
+b = tf.Variable(tf.zeros([10]))
+
+sess.run(tf.global_variables_initializer())
+
+saver = tf.train.Saver()
+
+
+y = tf.nn.softmax(tf.matmul(x,W)+b)
+
+cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+
+
+for _ in range(10000):
+    batch = mnist.train.next_batch(100)  
+    train_step.run(feed_dict={x: batch[0], y_: batch[1]})
+	
+correct_pred = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+
+```
+ interactive session also sets the created session as the default session, so you don't need to precede the session level commands like eval with the sess reference. We need some placeholders for the MNIST data we are passing and training. As X is the raw image data, and Y bar is the digit zero through nine of the image. And we use none because we don't know how many images we're going to pass in. We define the weights and biases to our model in a layer. Before Variables can be used within a session, they must be initialized using that session,
+ After that we set the training. TensorFlow has a variety of built-in optimization algorithms. For this example, we will use steepest gradient descent,
+ ```
+ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+ ```
+ with a step length of 0.5, to descend the cross entropy.
+ 
 
 ### **_Flask_**
 
