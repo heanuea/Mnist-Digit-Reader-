@@ -10,14 +10,8 @@ import tensor as ten
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template("index.html")
 
 @app.route('/', methods=['GET','POST'])
-
-
-
 def get_image(): 
     guess = 0
     if request.method== 'POST':
