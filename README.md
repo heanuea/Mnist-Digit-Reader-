@@ -22,6 +22,7 @@ After training, the CNN showed 92.92% accuracy on MNIST's test dataset. To learn
 I will cover a much simpler approach, similar to the one used here. I’ll use
 
 - [Flask](flask.pocoo.org/)to build the API (back-end)
+
 - jquery.[ajax](http://api.jquery.com/jquery.ajax/) to handle requests to the API from your client (front-end)
 - I use JavaScript[(FabricJs)](http://fabricjs.com/) to allow the user to draw graphics on the fly in an HTML canvas element
 
@@ -34,7 +35,9 @@ The next step is to share the digit with the server, where Flask will handle the
 
 **Ajax call**
 
-```                $.ajax({
+```Ajax 
+
+              $.ajax({
                     type: 'post',
                     url: '/',
                     data: {
@@ -52,7 +55,8 @@ The next step is to share the digit with the server, where Flask will handle the
 
 I needed Flask to perform three tasks besides rendering the website: collect the base64-encoded handwritten digit images; hand the images over to the machine learning recognizer; and return the result back to the front end. The complete Flask code is shown here below.
 
-```from flask import Flask, render_template,url_for, request, jsonify
+```python
+from flask import Flask, render_template,url_for, request, jsonify
 import numpy as np
 import tensorflow as tf
 from PIL import Image
@@ -108,7 +112,8 @@ As I mentioned above, handwritten digit recognition is a widely studied problem 
 **TensorFlow**
 
 I decided to use TensorFlow, Google's machine learning software library to implement the machine learning model. To make the implementation even simpler, I went one step higher in the abstraction level and used TFlearn, a software library providing "a higher-level API to TensorFlow". As for the choice of machine learning algorithm, the best classification accuracies are achieved with deep convolutional neural networks (CNNs), as you can see in the list of research results on MNIST's webpage or in this other curated list. However, you can get very decent accuracies with relatively shallow CNNs too. So, at least for the first implementation, I decided to use a relatively simple CNN architecture.
-```
+```python
+
 sess = tf.InteractiveSession()
 x = tf.placeholder(tf.float32, shape=[None, 784])
 y_ = tf.placeholder(tf.float32, [None, 10])  
@@ -138,7 +143,8 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 ```
  interactive session also sets the created session as the default session, so you don't need to precede the session level commands like eval with the sess reference. We need some placeholders for the MNIST data we are passing and training. As X is the raw image data, and Y bar is the digit zero through nine of the image. And we use none because we don't know how many images we're going to pass in. We define the weights and biases to our model in a layer. Before Variables can be used within a session, they must be initialized using that session,
  After that we set the training. TensorFlow has a variety of built-in optimization algorithms. For this example, we will use steepest gradient descent,
- ```
+ ```python
+
  train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
  ```
  with a step length of 0.5, to descend the cross entropy.
@@ -172,8 +178,7 @@ python app.py
 ```
 
 ### **_Conclusion_**
-Overall i like learning abou this subject i understand the fundametals of Machine learning (Tensorflow), i discovered that machine learning is not as complex as it may it seems with the tools and understanding of models and training them. With the Project i wish i had time to do a better job and have multilayer convolutionalin my project  and i wanted to implement [TFlearn](http://tflearn.org/)
-But i will look over that on myspare time, 
+Overall i like learning abou this subject i understand the fundametals of Machine learning (Tensorflow), i discovered that machine learning is not as complex as it may it seems with the tools and understanding of models and training them. With the Project i wish i had time to do a better job and have multilayer convolutionalin my project  and i wanted to implement [TFlearn](http://tflearn.org/) i didnt use [Keras](https://keras.io) as i wanted to understand tensorflow in more depth and see how it worked in terms of how each step takes i found Keras puts alot of the tensorflow into methods so does alot of the work for ya. But i will look over that on myspare time, this topic was great because not only is it new but it going to be massively used in the future. 
 
 ### **_References_**
  
