@@ -23,7 +23,7 @@ def get_image():
         image_string = re.search(r'base64,(.*)', image_url).group(1)  
         image_bytes = io.BytesIO(base64.b64decode(image_string)) 
         image = Image.open(image_bytes) 
-        image = image.resize(img_size, Image.ANTIALIAS)  
+        image = image.resize(img_size, Image.LANCZOS)  
         image = image.convert('1') 
         image_array = np.asarray(image)
         image_array = image_array.flatten()  
