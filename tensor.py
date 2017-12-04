@@ -27,7 +27,7 @@ sess.run(tf.global_variables_initializer())
 # Save the session for later use
 saver = tf.train.Saver()
 
-# IMplement regression model
+# regression model
 y = tf.nn.softmax(tf.matmul(x,W)+b)
 
 # Set prediction
