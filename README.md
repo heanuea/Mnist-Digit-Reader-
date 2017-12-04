@@ -1,3 +1,8 @@
+# **_About Me_**
+
+My name is Alan Heanue I am a 4th year software development Studying in the Galway-Mayo Intitute of Technology
+This is one of 5 modules i am Working on this semester it focuses mainly on emerging technologies and how these technologies can be used for industry based usage
+
 # **_About Flask Python Digit Reader_**
 
 The web app is written in Python using the Flask web framework. I use JavaScript to collect drawings in an HTML canvas element and Machine Learning (ML) for handwritten digit recognition. The digit recognizer is a Convolutional Neural Network (CNN) trained on the MNIST dataset using the Tensorflow software library.
@@ -95,13 +100,12 @@ if __name__ == '__main__':
 
 ```
 Two functions implementing the Flask tasks follow. The functions use Flasks's route() decorator to indicate what URL should trigger the function. While index() simply renders the web page, get_image() handles all the digit recognition work. It collects the data, preprocesses the digit images, and runs the digit recognizer. This uses functionality implemented in the PIL module, addressed in more detail in the sections discussing data preprocessing and the machine learning classifier below. Additionally, get_image() also prepares the output by identifying the class (digits between 0 and 9) with the highest probability and composing the string to be displayed to the user. If the determined highest probability is lower than 60%, the output class is not shown and the string is a message indicating the digit could not be identified. This is to handle the fact that the model will always output a digit class, even if the drawing does not look at all like a digit. Otherwise, the string contains the predicted digit and its probability.
-
-### **_MNIST_**
+**MNIST**
 As I mentioned above, handwritten digit recognition is a widely studied problem in the field of computer vision. A popular training dataset, the [MNIST](http://yann.lecun.com/exdb/mnist/), has been around for quite some time and has been used extensively to benchmark developments in the field. It is a subset of a larger dataset distributed by the National Institute of Standards and Technology (NIST).[MNIST](http://yann.lecun.com/exdb/mnist/) consists of scanned grayscale digital images of handwritten digits, including balanced sets of 60,000 and 10,000 training and test images, respectively. The images have been size-normalized and centered, making up a nice and clean dataset ready for use. Here are some example.
 
 [![N|Solid](https://github.com/heanuea/Mnist-Digit-Reader--master/Images/Figure-13-Scatter-SVM-non-support-vectors-on-MNIST-data.png)]
 
-### **_TensorFlow_**
+**TensorFlow**
 
 I decided to use TensorFlow, Google's machine learning software library to implement the machine learning model. To make the implementation even simpler, I went one step higher in the abstraction level and used TFlearn, a software library providing "a higher-level API to TensorFlow". As for the choice of machine learning algorithm, the best classification accuracies are achieved with deep convolutional neural networks (CNNs), as you can see in the list of research results on MNIST's webpage or in this other curated list. However, you can get very decent accuracies with relatively shallow CNNs too. So, at least for the first implementation, I decided to use a relatively simple CNN architecture.
 ```
@@ -139,7 +143,7 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
  ```
  with a step length of 0.5, to descend the cross entropy.
 
-### **_PREPROCESSING THE HANDWRITTEN DIGIT IMAGES_**
+ **PREPROCESSING THE HANDWRITTEN DIGIT IMAGES**
 
 The data sent to the server from the front end needs to be peprocessed before classification. The first step is to convert the base64-encoded image of the digit drawn by the user to a NumPy ndarray data structure with an URl the Function image_url = request.values['imageBase64'] , at which point the data could be fed to the classifier. However, in order to minimize the loss in classificatin accuracy caused by the differences to the MNIST training data, a few extra steps need to be taken as we seen in the Flask App above this is converted to PIL Image and it tries to resize it using image = image.resize(img_size, Image.ANTIALIAS) for tensorflow. 
 
