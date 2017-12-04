@@ -168,8 +168,8 @@ python app.py
 ```
 
 ### **_Conclusion_**
-Overall i like learning abou this subject i understand the fundametals of Machine learning (Tensorflow), i discovered that machine learning is not as complex as it may it seems with the tools and understanding of models and training them. With the Project i wish i had time to do a better job and have multilayer convolutional and i wanted to [TFlearn](http://tflearn.org/)
-But i will look over that on myspare time. 
+Overall i like learning abou this subject i understand the fundametals of Machine learning (Tensorflow), i discovered that machine learning is not as complex as it may it seems with the tools and understanding of models and training them. With the Project i wish i had time to do a better job and have multilayer convolutionalin my project  and i wanted to implement [TFlearn](http://tflearn.org/)
+But i will look over that on myspare time, 
 
 ### **_References_**
  
